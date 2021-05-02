@@ -42,3 +42,15 @@ order by count(emp_no) desc;
 
 SELECT *
 FROM retiring_titles;
+
+
+----Create Mentorship eligibility query (Double check this query with ta)
+SELECT DISTINCT ON (emp.emp_no)
+	emp.emp_no, emp.first_name,emp.last_name,emp.birth_date,demp.from_date,demp.to_date,ti.title
+FROM employees emp INNER JOIN dept_emp demp    
+ON emp.emp_no = demp.emp_no
+INNER JOIN titles ti
+ON emp.emp_no = ti.emp_no
+WHERE emp.birth_date between '1965-01-01' and '1965-12-31'
+ORDER BY emp.emp_no ASC,
+demp.to_date DESC
