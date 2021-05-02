@@ -44,13 +44,19 @@ SELECT *
 FROM retiring_titles;
 
 
-----Create Mentorship eligibility query (Double check this query with ta)
+----Create Mentorship eligibility query 
 SELECT DISTINCT ON (emp.emp_no)
 	emp.emp_no, emp.first_name,emp.last_name,emp.birth_date,demp.from_date,demp.to_date,ti.title
+INTO mentorship_eligibilty	
 FROM employees emp INNER JOIN dept_emp demp    
 ON emp.emp_no = demp.emp_no
 INNER JOIN titles ti
 ON emp.emp_no = ti.emp_no
-WHERE emp.birth_date between '1965-01-01' and '1965-12-31'
+WHERE (emp.birth_date between '1965-01-01' and '1965-12-31')
+	and demp.to_date = '9999-01-01'
 ORDER BY emp.emp_no ASC,
-demp.to_date DESC
+ti.to_date DESC
+
+SELECT *
+FROM mentorship_eligibilty;
+
